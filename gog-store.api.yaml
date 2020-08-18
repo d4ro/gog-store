@@ -1,0 +1,284 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: gog-store
+servers:
+  - url: 'http://localhost:8000'
+paths:
+  /products:
+    get:
+      summary: A page of products
+      operationId: listProducts
+      tags:
+        - product
+      parameters:
+        - name: page
+          in: query
+          description: page number
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Details of a page of products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/products'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status'
+    post:
+      summary: Create new product
+      operationId: postProduct
+      tags:
+        - product
+      requestBody:
+        description: Data of a product to insert
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product'
+      responses:
+        default:
+          description: Execution status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status'
+  '/products/{id}':
+    get:
+      summary: 'Get the product of a given ID'
+      operationId: getProduct
+      tags:
+        - product
+      parameters:
+        - name: id
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Details of the product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status'
+    put:
+      summary: 'Update the product of a given ID'
+      operationId: putProduct
+      tags:
+        - product
+      parameters:
+        - name: id
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Data of a product to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/partialProduct'
+      responses:
+        default:
+          description: Execution status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status'
+    delete:
+      summary: 'Remove the product of a given ID'
+      operationId: deleteProduct
+      tags:
+        - product
+      parameters:
+        - name: id
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Execution status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status'
+  /cart:
+    post:
+      summary: Create new cart
+      operationId: postCart
+      tags:
+        - cart
+      requestBody:
+        description: Data of a cart to insert
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cart'
+      responses:
+        default:
+          description: Execution status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status'
+  '/cart/{cart_id}':
+    get:
+      summary: 'Get the products of a given cart'
+      operationId: getCart
+      tags:
+        - cart
+      parameters:
+        - name: cart_id
+          in: path
+          description: ID of the cart
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Details of the cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cart'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status'
+  '/cart/{cart_id}/product/{product_id}':
+    put:
+      summary: 'Put a product to a cart'
+      operationId: putProductToCart
+      tags:
+        - cart
+        - product
+      parameters:
+        - name: cart_id
+          in: path
+          description: ID of the cart
+          required: true
+          schema:
+            type: integer
+        - name: product_id
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Amount of the product to add
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+      responses:
+        default:
+          description: Execution status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status'
+    delete:
+      summary: 'Remove the product from a cart'
+      operationId: removeProductFromCart
+      tags:
+        - cart
+        - product
+      parameters:
+        - name: cart_id
+          in: path
+          description: ID of the cart
+          required: true
+          schema:
+            type: integer
+        - name: product_id
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Execution status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status'
+components:
+  schemas:
+    products:
+      type: array
+      title: products
+      maxItems: 3
+      minItems: 0
+      items:
+        $ref: '#/components/schemas/product'
+    product:
+      type: object
+      required:
+        - title
+        - price
+      properties:
+        id:
+          type: integer
+        product_id:
+          type: integer
+        title:
+          type: string
+        price:
+          type: number
+        amount:
+          type: number
+    partialProduct:
+      type: object
+      properties:
+        title:
+          type: string
+        price:
+          type: number
+    cart:
+      type: object
+      properties:
+        id:
+          type: integer
+        products:
+          $ref: '#/components/schemas/products'
+        total:
+          type: number
+    status:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        id:
+          type: integer

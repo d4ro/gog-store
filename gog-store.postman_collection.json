@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "47ee66d1-324f-4008-8ccb-89f4f467c91d",
+		"name": "gog-store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create a product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Fall Guys\",\r\n    \"price\":12.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "A page of products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/products?page=2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2",
+							"description": "page number"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the product of a given ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/products/:productId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products",
+						":productId"
+					],
+					"variable": [
+						{
+							"key": "productId",
+							"value": "1",
+							"type": "string",
+							"description": "(Required) ID of the product"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the product of a given ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Don’t Starve\",\r\n    \"price\": 1.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/products/:productId?fg=dsd",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "fg",
+							"value": "dsd"
+						}
+					],
+					"variable": [
+						{
+							"description": "(Required) ID of the product",
+							"key": "productId",
+							"type": "string",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove the product of a given ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/products/:productId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"products",
+						":productId"
+					],
+					"variable": [
+						{
+							"description": "(Required) ID of the product",
+							"key": "productId",
+							"type": "string",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show products in a cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cart/:cartId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						":cartId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a product into a cart",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/:cartId/product/:productId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						":cartId",
+						"product",
+						":productId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "10"
+						},
+						{
+							"description": "(Required) ID of the product",
+							"key": "productId",
+							"type": "string",
+							"value": "409"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a product from a cart",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/:cartId/product/:productId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						":cartId",
+						"product",
+						":productId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "1"
+						},
+						{
+							"description": "(Required) ID of the product",
+							"key": "productId",
+							"type": "string",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "baseUrl",
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

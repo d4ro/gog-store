@@ -1,0 +1,26 @@
+{
+  "name": "daro/gog-store",
+  "description": "example restful store",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Dariusz Wojciechowski",
+      "email": "daronetster@gmail.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "5.1.x-dev",
+    "miladrahimi/phprouter": "v4.0.9",
+    "ext-pdo": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "GogStore\\": "src/GogStore"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "9.4.x-dev"
+  }
+}

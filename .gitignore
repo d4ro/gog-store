@@ -1,0 +1,6 @@
+.env
+/logs/*
+/vendor/*
+!.gitignore
+!.gitkeep
+*.cache
